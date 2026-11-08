@@ -8,6 +8,7 @@ def run_day(spike=False):
     soc = 100
     cost_without = 0
     cost_with = 0
+    rows = []
 
     for hour in range(24):
         tariff = get_tariff(hour, spike)
@@ -26,11 +27,14 @@ def run_day(spike=False):
             soc = update_battery(soc, "grid")
 
         cost_with = cost_with + hour_cost
+        rows.append({"hour": hour, "tariff": tariff, "source": source, "soc": round(soc, 1)})
         print(hour, tariff, source, round(soc, 1))
 
     print("Cost without system:", round(cost_without, 2))
     print("Cost with system:", round(cost_with, 2))
     print("Money saved:", round(cost_without - cost_with, 2))
+
+    return rows, cost_without, cost_with
 
 
 if __name__ == "__main__":
