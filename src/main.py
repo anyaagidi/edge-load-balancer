@@ -1,10 +1,10 @@
 from tariff import get_tariff
 from battery import update_battery, LOAD_KW
-from engine import decide_source
+from engine import decide_source, TARIFF_THRESHOLD
 from load_balancer import split_load, SOURCES
 
 
-def run_day(spike=False):
+def run_day(spike=False, threshold=TARIFF_THRESHOLD):
     soc = 100
     cost_without = 0
     cost_with = 0
@@ -12,7 +12,7 @@ def run_day(spike=False):
 
     for hour in range(24):
         tariff = get_tariff(hour, spike)
-        source = decide_source(tariff, soc)
+        source = decide_source(tariff, soc, threshold)
 
         cost_without = cost_without + LOAD_KW * tariff
 
