@@ -1,5 +1,5 @@
 from tariff import get_tariff
-from battery import update_battery, LOAD_KW
+from battery import update_battery, LOAD_KW, CHARGE_KW
 from engine import decide_source, TARIFF_THRESHOLD
 from load_balancer import split_load, SOURCES
 
@@ -24,6 +24,8 @@ def run_day(spike=False, threshold=TARIFF_THRESHOLD):
             soc = update_battery(soc, "battery", draw_kw=shares["battery"])
         else:
             hour_cost = LOAD_KW * tariff
+            if soc < 100:
+                hour_cost = hour_cost + CHARGE_KW * tariff
             soc = update_battery(soc, "grid")
 
         cost_with = cost_with + hour_cost
