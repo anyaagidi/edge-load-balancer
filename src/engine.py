@@ -3,9 +3,9 @@ MIN_SOC = 30             # never use the battery below this level (%)
 
 
 def decide_source(tariff, soc, threshold=TARIFF_THRESHOLD):
-    """Return "battery" or "grid" based on the price and battery level."""
+    """Return "internal" or "grid" based on the price and battery level."""
     if tariff > threshold and soc > MIN_SOC:
-        return "battery"
+        return "internal"
     return "grid"
 
 
