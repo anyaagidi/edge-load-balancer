@@ -12,6 +12,7 @@ PAGE = """
 <p>Cost without system: ${{ cost_without }}</p>
 <p>Cost with system: ${{ cost_with }}</p>
 <p>Money saved: ${{ saved }}</p>
+<p>Percent saved: {{ percent }}%</p>
 <table border="1" cellpadding="6">
   <tr><th>Hour</th><th>Price ($/kWh)</th><th>Source</th><th>Battery (%)</th></tr>
   {% for r in rows %}
@@ -32,6 +33,7 @@ def home():
         cost_without=round(cost_without, 2),
         cost_with=round(cost_with, 2),
         saved=round(cost_without - cost_with, 2),
+        percent=round((cost_without - cost_with) / cost_without * 100, 1),
     )
 
 
