@@ -3,10 +3,10 @@ LOAD_KW = 50                # how much power the building uses
 CHARGE_KW = 25              # how fast the grid can recharge the battery
 
 
-def update_battery(soc, source, hours=1):
+def update_battery(soc, source, hours=1, draw_kw=LOAD_KW):
     """Return the new battery level (%) after running on a source for some hours."""
     if source == "battery":
-        soc = soc - (LOAD_KW * hours / BATTERY_CAPACITY_KWH) * 100
+        soc = soc - (draw_kw * hours / BATTERY_CAPACITY_KWH) * 100
     else:
         soc = soc + (CHARGE_KW * hours / BATTERY_CAPACITY_KWH) * 100
 
